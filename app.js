@@ -28,3 +28,27 @@ function updateStreets(streets) {
   } 
 }
 
+sectionElem.onclick = e => {
+  let key = e.target.dataset;
+   fetch (`https://api.winnipegtransit.com/v3/stops.json?api-key=${apiKey}&street=${key.streetKey}&usage=long`)
+    .then (resp => {
+      if (resp.ok) {
+        return (resp.json());
+      }  
+    }).then (data => {
+        updateStops(data.stops);
+    });  
+}
+
+// function updateStops(stops) {
+//   stops.forEach(function(s) {
+//     fetch(`https://api.winnipegtransit.com/v3/stops/${s.key}/schedule.json?max-results-per-route=2&api-key=${apiKey}`)
+//     .then(resp => {
+//       if (resp.ok) {
+//           return resp.json();
+//       }
+//     }).then (data => {
+//       console.log(data);
+//     })  
+//   }) 
+// }
