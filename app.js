@@ -2,7 +2,7 @@ const apiKey = 'ifacCxMUu4mJPof9BlBn'
 const formElem = document.querySelector('form');
 const sectionElem = document.querySelector('.streets');
 const resultOfSearch = document.getElementById('street-name');
-
+const tbodyElem = document.querySelector("tbody");
 
 formElem.onsubmit = e => {
   input = e.target.querySelector('input');
@@ -50,7 +50,24 @@ function updateStops(stops) {
           return resp.json();
       }
     }).then (data => {
-      resultOfSearch.textContent = `Displaying results for ${data["stop-schedule"]["stop"]['street'].name}`;
+       //console.log(data);
+       finalSchedule(data);
     })  
   }) 
+}
+
+function finalSchedule(data) {
+  
+  resultOfSearch.textContent = `Displaying results for ${data["stop-schedule"]["stop"]['street'].name}`;
+  data["stop-schedule"]["route-schedules"].forEach(stop => {
+    tbodyElem.insertAdjacentHTML('afterbegin', `
+        <tr>
+          <td>${data["stop-schedule"]["stop"]['street'].name}</td>
+          <td>${data["stop-schedule"]["stop"]['cross-street'].name}</td>
+          <td>${data["stop-schedule"].stop.direction}</td>
+          <td>${data["stop-schedule"]["route-schedules"][0].route.number}</td>
+          <td>${data["query-time"].slice(11, 16)}</td>
+        </tr>
+    `)
+  })
 }
