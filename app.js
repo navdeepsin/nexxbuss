@@ -40,15 +40,15 @@ sectionElem.onclick = e => {
     });  
 }
 
-// function updateStops(stops) {
-//   stops.forEach(function(s) {
-//     fetch(`https://api.winnipegtransit.com/v3/stops/${s.key}/schedule.json?max-results-per-route=2&api-key=${apiKey}`)
-//     .then(resp => {
-//       if (resp.ok) {
-//           return resp.json();
-//       }
-//     }).then (data => {
-//       console.log(data);
-//     })  
-//   }) 
-// }
+function updateStops(stops) {
+  stops.forEach(function(s) {
+    fetch(`https://api.winnipegtransit.com/v3/stops/${s.key}/schedule.json?max-results-per-route=2&api-key=${apiKey}`)
+    .then(resp => {
+      if (resp.ok) {
+          return resp.json();
+      }
+    }).then (data => {
+      console.log(data);
+    })  
+  }) 
+}
