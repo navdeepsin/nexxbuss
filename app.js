@@ -1,6 +1,8 @@
 const apiKey = 'ifacCxMUu4mJPof9BlBn'
 const formElem = document.querySelector('form');
 const sectionElem = document.querySelector('.streets');
+const resultOfSearch = document.getElementById('street-name');
+
 
 formElem.onsubmit = e => {
   input = e.target.querySelector('input');
@@ -48,7 +50,7 @@ function updateStops(stops) {
           return resp.json();
       }
     }).then (data => {
-      console.log(data);
+      resultOfSearch.textContent = `Displaying results for ${data["stop-schedule"]["stop"]['street'].name}`;
     })  
   }) 
 }
